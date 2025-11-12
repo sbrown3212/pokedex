@@ -1,0 +1,19 @@
+# Go binaries
+pokedex
+*.exe
+*.out
+*.test
+
+# Build dirs
+bin/
+dist/
+build/
+
+# Coverage / tooling
+coverage.out
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
