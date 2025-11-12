@@ -9,6 +9,10 @@ func TestCleanInput(t *testing.T) {
 		input    string
 		expected []string
 	}{
+		"empty": {
+			input:    "   ",
+			expected: []string{},
+		},
 		"split_on_whitespace": {
 			input:    "hello world",
 			expected: []string{"hello", "world"},
