@@ -5,11 +5,8 @@ import (
 )
 
 func cleanInput(text string) []string {
-	var result []string
+	lowercase := strings.ToLower(text)
+	words := strings.Fields(lowercase)
 
-	trimmed := strings.TrimSpace(text)
-	lowercase := strings.ToLower(trimmed)
-	result = strings.Split(lowercase, " ")
-
-	return result
+	return words
 }
