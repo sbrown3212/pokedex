@@ -35,7 +35,12 @@ func startRepl() {
 		case "exit":
 			err := commands["exit"].callback()
 			if err != nil {
-				fmt.Printf("error exiting Pokedex: %v", err)
+				fmt.Printf("error exiting Pokedex: %v\n", err)
+			}
+		case "help":
+			err := commands["help"].callback()
+			if err != nil {
+				fmt.Printf("error with help command: %v\n", err)
 			}
 		default:
 			fmt.Println("Unknown command")
@@ -50,6 +55,15 @@ func commandExit() error {
 	return nil
 }
 
+func commandHelp() error {
+	fmt.Printf(`Welcome to the Pokedex!
+	Usage:
+
+	help: Displays a help message
+	exit: Exit the Pokedex`)
+	return nil
+}
+
 type cliCommand struct {
 	name        string
 	description string
@@ -61,5 +75,10 @@ var commands = map[string]cliCommand{
 		name:        "exit",
 		description: "Exit the Pokedex",
 		callback:    commandExit,
+	},
+	"help": {
+		name:        "help",
+		description: "Displays a help message",
+		callback:    commandHelp,
 	},
 }
