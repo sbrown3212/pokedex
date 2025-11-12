@@ -50,17 +50,19 @@ func startRepl() {
 }
 
 func commandExit() error {
-	fmt.Print("Closing the Pokedex... Goodbye!")
+	fmt.Println("Closing the Pokedex... Goodbye!")
 	os.Exit(0)
 	return nil
 }
 
 func commandHelp() error {
-	fmt.Printf(`Welcome to the Pokedex!
-	Usage:
+	// fmt.Print("Welcome to the Pokedex!\nUsage:\n\nhelp: Displays a help message\nexit: Exit the Pokedex\n")
+	fmt.Print(`Welcome to the Pokedex!
+Usage:
 
-	help: Displays a help message
-	exit: Exit the Pokedex`)
+help: Displays a help message
+exit: Exit the Pokedex
+`)
 	return nil
 }
 
