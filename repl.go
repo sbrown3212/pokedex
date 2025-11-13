@@ -11,13 +11,6 @@ const (
 	prompt string = "Pokedex > "
 )
 
-func cleanInput(text string) []string {
-	lowercase := strings.ToLower(text)
-	words := strings.Fields(lowercase)
-
-	return words
-}
-
 func startRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
@@ -31,39 +24,25 @@ func startRepl() {
 
 		commandName := words[0]
 
-		switch commandName {
-		case "exit":
-			err := commands["exit"].callback()
+		command, exists := getCommands()[commandName]
+		if exists {
+			err := command.callback()
 			if err != nil {
-				fmt.Printf("error exiting Pokedex: %v\n", err)
+				fmt.Println(err)
 			}
-		case "help":
-			err := commands["help"].callback()
-			if err != nil {
-				fmt.Printf("error with help command: %v\n", err)
-			}
-		default:
+			continue
+		} else {
 			fmt.Println("Unknown command")
+			continue
 		}
-
 	}
 }
 
-func commandExit() error {
-	fmt.Println("Closing the Pokedex... Goodbye!")
-	os.Exit(0)
-	return nil
-}
+func cleanInput(text string) []string {
+	lowercase := strings.ToLower(text)
+	words := strings.Fields(lowercase)
 
-func commandHelp() error {
-	// fmt.Print("Welcome to the Pokedex!\nUsage:\n\nhelp: Displays a help message\nexit: Exit the Pokedex\n")
-	fmt.Print(`Welcome to the Pokedex!
-Usage:
-
-help: Displays a help message
-exit: Exit the Pokedex
-`)
-	return nil
+	return words
 }
 
 type cliCommand struct {
@@ -72,15 +51,17 @@ type cliCommand struct {
 	callback    func() error
 }
 
-var commands = map[string]cliCommand{
-	"exit": {
-		name:        "exit",
-		description: "Exit the Pokedex",
-		callback:    commandExit,
-	},
-	"help": {
-		name:        "help",
-		description: "Displays a help message",
-		callback:    commandHelp,
-	},
+func getCommands() map[string]cliCommand {
+	return map[string]cliCommand{
+		"exit": {
+			name:        "exit",
+			description: "Exit the Pokedex",
+			callback:    commandExit,
+		},
+		"help": {
+			name:        "help",
+			description: "Displays a help message",
+			callback:    commandHelp,
+		},
+	}
 }
