@@ -64,6 +64,11 @@ func getCommands() map[string]cliCommand {
 			description: "Displays first 20 location areas. Each subsequent usage displays the next 20 areas.",
 			callback:    commandMap,
 		},
+		"mapb": {
+			name:        "mapb",
+			description: "Displays previous 20 location areas.",
+			callback:    commandMapB,
+		},
 	}
 }
 
