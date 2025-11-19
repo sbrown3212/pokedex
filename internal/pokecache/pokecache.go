@@ -4,10 +4,11 @@ import "time"
 
 func NewCache(interval time.Duration) *Cache {
 	cache := &Cache{
+		entries:  make(map[string]cacheEntry),
 		interval: interval,
 	}
 
-	cache.reapLoop()
+	go cache.reapLoop()
 
 	return cache
 }
