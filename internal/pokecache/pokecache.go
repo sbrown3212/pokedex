@@ -18,7 +18,7 @@ func (c *Cache) Add(key string, val []byte) {
 	defer c.mu.Unlock()
 
 	c.entries[key] = cacheEntry{
-		createdAt: time.Now(),
+		createdAt: time.Now().UTC(),
 		val:       val,
 	}
 }
@@ -40,7 +40,7 @@ func (c *Cache) reapLoop() {
 	for {
 		<-ticker.C
 
-		currentTime := time.Now()
+		currentTime := time.Now().UTC()
 
 		var entries []struct {
 			key       string
