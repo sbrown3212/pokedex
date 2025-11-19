@@ -17,8 +17,10 @@ func commandExplore(cfg *config, args ...string) error {
 		return fmt.Errorf("unable to fetch location detail: %s", err)
 	}
 
+	fmt.Printf("Exploring %s\n", areaDetail.Name)
+	fmt.Println("Pokemon Found:")
 	for _, encounter := range areaDetail.PokemonEncounters {
-		fmt.Println(encounter.Pokemon.Name)
+		fmt.Printf(" - %s\n", encounter.Pokemon.Name)
 	}
 
 	return nil
