@@ -21,7 +21,6 @@ type config struct {
 
 func startRepl(cfg *config) {
 	scanner := bufio.NewScanner(os.Stdin)
-	// cfg := &config{}
 
 	for {
 		fmt.Print(prompt)
@@ -36,7 +35,7 @@ func startRepl(cfg *config) {
 
 		command, exists := getCommands()[commandName]
 		if exists {
-			err := command.callback(cfg)
+			err := command.callback(cfg, words[1:]...)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -69,13 +68,18 @@ func getCommands() map[string]cliCommand {
 		},
 		"map": {
 			name:        "map",
-			description: "Displays first 20 location areas. Each subsequent usage displays the next 20 areas.",
+			description: "Get the next page of locations",
 			callback:    commandMapf,
 		},
 		"mapb": {
 			name:        "mapb",
-			description: "Displays previous 20 location areas.",
+			description: "Get the previous page of locations",
 			callback:    commandMapB,
+		},
+		"explore": {
+			name:        "explore",
+			description: "Get the pokemon of a given area",
+			callback:    commandExplore,
 		},
 	}
 }
@@ -83,5 +87,5 @@ func getCommands() map[string]cliCommand {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*config) error
+	callback    func(*config, ...string) error
 }
