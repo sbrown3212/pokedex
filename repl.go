@@ -5,20 +5,11 @@ import (
 	"fmt"
 	"os"
 	"strings"
-
-	"github.com/sbrown3212/pokedex/internal/pokeapi"
 )
 
 const (
 	prompt string = "Pokedex > "
 )
-
-type config struct {
-	pokeapiClient    pokeapi.Client
-	nextLocationsURL *string
-	prevLocationsURL *string
-	pokedex          map[string]Pokemon
-}
 
 func startRepl(cfg *config) {
 	scanner := bufio.NewScanner(os.Stdin)
@@ -93,10 +84,4 @@ func getCommands() map[string]cliCommand {
 			callback:    commandInspect,
 		},
 	}
-}
-
-type cliCommand struct {
-	name        string
-	description string
-	callback    func(*config, ...string) error
 }

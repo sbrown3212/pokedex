@@ -7,24 +7,6 @@ import (
 	"slices"
 )
 
-// TODO: move to types main file
-
-type Pokemon struct {
-	id             int
-	name           string
-	baseExperience int
-	height         int
-	weight         int
-	stats          []struct {
-		name string
-		val  int
-	}
-	types []struct {
-		name string
-		slot int
-	}
-}
-
 func commandCatch(cfg *config, args ...string) error {
 	if len(args) != 1 {
 		return fmt.Errorf("you must provide a pokemon name")
